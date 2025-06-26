@@ -4,152 +4,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>面試資料表</title>
+    <!-- 載入bs5 css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/css/bootstrap.min.css"
+        integrity="sha512-fw7f+TcMjTb7bpbLJZlP8g2Y4XcCyFZW8uy8HsRZsH/SwbMw0plKHFHr99DN3l04VsYNwvzicUX/6qurvIxbxw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        .container-table {
-            /* width: 80vw; */
-            /* height: 90vh; */
-            width: 80%;
-            height: 90vh;
-            background-color: wheat;
-            margin: auto;
-
-            border: 1px solid #000;
-            border-radius: 10px;
-            box-shadow: 3px 3px 15px black;
-            ;
+        * {
+            box-sizing: border-box;
         }
 
-        .title {
-            /* margin: auto; */
-            text-align: center;
+        .container {
+            background-color: lightskyblue;
+            box-shadow: 2px 2px 2px 2px lightgray;
+            border-radius: 5px;
         }
 
-        table {
-            /* 寬度修正為100% */
-            /* width: 50%; */
-            /* height: 50%; */
-            /* margin: auto; */
-            /* text-align: center; */
-            width: 80%;
-            margin: auto
-        }
-
-        /* td設 文字置中 */
-        table,
-        th,
-        tr,
-        td {
-            border: 1px solid #000;
-            border-collapse: collapse;
-            text-align: center;
-            font-size: 18px;
-        }
-
-        th {
-            height: 50px;
-            background-color: lightseagreen;
-        }
-
-        td {
-            /* height: 100px; */
-            background-color: lightpink;
-        }
-
-        /* 設td hover效果 */
-        td:hover {
-            background-color: lightsalmon;
-        }
-
-        img {
-            /* width: 50%;
-            height: 50%; */
-            /* background-color: lightblue; */
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-        }
-
-        .counts {
-            width: 70px;
-            height: 30px;
-            border-radius: 10px;
-        }
+        /* button {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        } */
     </style>
+
 </head>
 
 <body>
-    <!-- 建立6*4表格 table>tr*4>td*6-->
-    <!-- 忘記th如何寫emmt -->
+    <!-- 先建立ct row col 架構 -->
+    <!-- 新增標題，也要設架構 -->
 
-    <!-- 要設container-table -->
-    <div class="container-table">
+    <div class="container">
+        <div class="row mt-3 pt-3">
+            <h1 class="text-center">面試資料表</h1>
+        </div>
 
-        <h1 class="title">Shop</h1>
+        <div class="row mt-3">
 
-        <table>
-            <tr>
-                <!-- th直接設定寬度 -->
-                <th width=5%>id</th>
-                <th width=10%>品項</th>
-                <th width=15%>圖片</th>
-                <th width=10%>單價</th>
-                <th width=20%>數量</th>
-                <th>總計</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>拿鐵</td>
-                <td>
-                    <!-- 可放網路連結圖片 picsum -->
-                    <img src="./image/image1.png" alt="">
-                </td>
+            <!-- row1：col-12小尺寸1個 col-sm-6大尺寸2個 -->
+            <!-- RWD小尺寸之後 col加上mt-3 -->
+            <div class="col-12 col-sm-6 mt-3">
+                <!-- 插入label -->
+                <!-- BS  / form-label /  -->
+                <label for="" class="form-label ">姓名</label>
 
-                <!-- 設span 類似td-box 之後JS綁定 -->
-                <!-- <td>100</td> -->
-                <td>
-                    <span>100</span>
-                </td>
+                <!-- 插入 input -->
+                <!-- BS / form-control /  -->
+                <input type="text" class="form-control form-control-sm">
+            </div>
 
-                <!-- 輸入資料 input type="number" value-->
-                <td>
-                    <input class=counts type="number" value="1">
-                </td>
+            <!-- 複製 .col-2 -->
+            <div class="col-12 col-sm-6 mt-3">
+                <label for="" class="form-label">手機</label>
+                <input type="text" class="form-control form-control-sm">
+            </div>
+        </div>
 
-                <td></td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>摩卡</td>
-                <td>
-                    <img src="./image/image2.png" alt="">
-                </td>
-                <!-- <td>150</td> -->
-                <td>
-                    <span>150</span>
-                </td>
+        <!-- 複製 .row-2 -->
+        <div class="row mt-3">
+            <div class="col">
+                <label for="" class="form-label">地址</label>
 
-                <td>1</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>美式</td>
-                <td>
-                    <img src="./image/image3.png" alt="">
-                </td>
-                <!-- <td>50</td> -->
-                <td>
-                    <span>50</span>
-                </td>
-                <td>1</td>
-                <td></td>
-            </tr>
-        </table>
+                <!-- Form control / Sizing / .form-control-lg -->
+                <!-- 加到第二個class，其他input 手動複製貼上 沒有更快方法-->
+                <input type="text" class="form-control form-control-lg">
+            </div>
+        </div>
+
+        <!-- 複製 .row3 -->
+        <div class="row mt-3">
+            <div class="col">
+                <label for="" class="form-label">應徵管道</label>
+
+                <!-- Form control / select / .form-select -->
+                <select class="form-select">
+                    <option>104人力銀行</option>
+                    <option>1111人力銀行</option>
+                    <option>518人力銀行</option>
+                    <option>其他</option>
+                </select>
+            </div>
+
+            <!-- 複製 .col-2 -->
+            <div class="col">
+                <label for="" class="form-label">學歷</label>
+
+                <!-- Form control / select / .form-select -->
+                <select class="form-select">
+                    <option>碩博士</option>
+                    <option>大專</option>
+                    <option>高中</option>
+                    <option>國中</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 複製 .row-4 -->
+        <div class="row mt-3">
+            <div class="col-12 col-sm-6 mt-3">
+
+                <!-- Checks & radios 複選   -->
+                <!-- 額外多了div .form-check / form-check-input / form-check-label  -->
+                <!-- row4 > col div加上label -->
+                <label for="" class="form-label">駕照</label>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="check1" name="option1" value="something"
+                        checked>
+                    <label class="form-check-label" for="check1">普通重型機車</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
+                    <label class="form-check-label" for="check2">普通輕型機車</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" disabled>
+                    <label class="form-check-label">普通小型車</label>
+                </div>
+            </div>
+
+            <!-- 新增 .col-2 -->
+            <!-- col也可加mt-3 -->
+            <div class="col-12 col-sm-6 mt-3">
+
+                <!-- Checks & radios 單選   -->
+                <!-- row4 > col div加上label -->
+                <label for="" class="form-label">證照</label>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="radio1" name="optradio" value="option1" checked>
+                    <label class="form-check-label" for="radio1">有</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2">
+                    <label class="form-check-label" for="radio2">沒有</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" disabled>
+                    <label class="form-check-label">其他</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- 要留意div位置，從最後一個接著寫 -->
+        <!-- 複製 .row-4 -->
+        <div class="row mt-3">
+
+            <div class="col text-center mb-3">
+                <button type="reset" class="btn btn-warning">重設</button>
+            </div>
+
+            <div class="col text-center mb-3">
+                <button type="submit" class="btn btn-primary">提交</button>
+            </div>
+        </div>
 
     </div>
+    <!-- 細部微調 -->
+    <!-- 每個row加上mt-3 -->
+    <!-- col也可加mt-3 -->
+
+    <!-- row1：col-12小尺寸1個 col-sm-6大尺寸2個 -->
+    <!-- RWD小尺寸之後 col加上mt-3 -->
+
+    <!-- row4：col-12小尺寸1個 col-sm-6大尺寸2個 -->
+    <!-- RWD小尺寸之後 col加上mt-3 -->
+
+    <!-- row4 > col div加上label -->
+
+    <!-- 新增標題，也要設架構 -->
 
 
+
+    <!-- 載入bs5 js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/js/bootstrap.min.js"
+        integrity="sha512-zKeerWHHuP3ar7kX2WKBSENzb+GJytFSBL6HrR2nPSR1kOX1qjm+oHooQtbDpDBSITgyl7QXZApvDfDWvKjkUw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- 載入jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $(document).ready(function () {
+
+
+        });
+    </script>
 </body>
 
 </html>
