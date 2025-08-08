@@ -1,5 +1,5 @@
 <?php
-include 'config/database.php';
+include './config/database.php';
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +19,7 @@ include 'config/database.php';
     footer {
       background-color: #f8f9fa;
       text-align: center;
-      padding: 30px 0;
+      padding: 20px 0;
       margin-top: 40px;
       height: 10vh;
     }
@@ -56,9 +56,9 @@ include 'config/database.php';
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="views/main/course_list.php">課程流覽</a></li>
-          <li class="nav-item"><a class="nav-link" href="views/main/register.php">註冊</a></li>
-          <li class="nav-item"><a class="nav-link" href="views/main/login.php">登入</a></li>
+          <li class="nav-item"><a class="nav-link" href="./views/main/course_list.php">課程流覽</a></li>
+          <li class="nav-item"><a class="nav-link" href="./views/main/register.php">註冊</a></li>
+          <li class="nav-item"><a class="nav-link" href="./views/main/login.php">登入</a></li>
         </ul>
       </div>
     </div>
@@ -69,7 +69,7 @@ include 'config/database.php';
     <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
 
       <!-- 輪播內容 -->
-      <div class="carousel-inner col-12">
+      <div class="carousel-inner">
         <!-- 第一張 -->
         <div class="carousel-item active">
           <img src="./uploads/women-5635784_1920.png" class="d-block w-100" alt="皮拉提斯">
@@ -116,7 +116,7 @@ include 'config/database.php';
     </div>
   </div>
 
-  <!-- Cards Section -->
+  <!-- Cards -->
   <div class="container mt-5" style="height:60vh">
     <div class="row text-center">
 
@@ -171,6 +171,7 @@ include 'config/database.php';
       <!-- card end -->
     </div>
   </div>
+  <!-- Cards end -->
 
   <!-- Footer -->
   <footer>
