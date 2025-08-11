@@ -1,186 +1,261 @@
-<?php
-include './config/database.php';
-?>
-
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 
 <head>
-  <meta charset="UTF-8">
-  <title>皮拉提斯訓練平台</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>投籃大賽</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/css/bootstrap.min.css" rel="stylesheet" />
   <style>
     body {
-      padding-top: 10px;
-      background-color: #17a2b8;
-
+      background: linear-gradient(135deg, #0d47a1, #1976d2);
+      color: #fff;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      padding: 2rem 1rem;
     }
 
-    footer {
-      background-color: #f8f9fa;
+    .scoreboard {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 1rem 2rem;
+      font-weight: 700;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 15px rgb(0 0 0 / 0.3);
+      margin-bottom: 1.5rem;
+      user-select: none;
+    }
+
+    .scoreboard>div span {
+      display: block;
+      font-size: 2rem;
+      letter-spacing: 1.5px;
+      color: #ffd54f;
       text-align: center;
-      padding: 20px 0;
-      margin-top: 150px;
-      height: 10vh;
+      line-height: 1;
     }
 
-    .carousel-caption {
-      background-color: rgba(0, 0, 0, 0.6);
+    h1.title {
+      text-align: center;
+      font-weight: 500;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 8px #ffd54f;
+      user-select: none;
+    }
+
+    /* 使用Bootstrap字型等級, 自適應大小 */
+    /* @media (min-width: 768px) {
+      h1.title {
+        font-size: 4rem;
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      h1.title {
+        font-size: 2.5rem;
+      }
+    } */
+
+    .basket-container {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
       padding: 1rem;
-      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+      flex-wrap: wrap;
+      /* 小螢幕轉換成多行 */
+      height: auto;
+      /* 取消固定高度 */
     }
 
-    /* 調整輪播圖片大小 */
-    /* .carousel-inner img 是針對輪播內的圖片進行樣式設定 
-    /* 設 .carousel-item 或 .img(應該img才對@@) 會失效   */
-    .carousel-inner img {
-      width: 100%;
-      height: 60vh;
-      /* height: 500px; */
-      /* object-fit: contain; 保持圖片比例，避免變形 */
-      object-fit: cover;
-      /* 確保圖片覆蓋整個容器 裁切圖片填滿容器 */
+    .basket-container img {
+      width: 70%;
+      max-width: 200px;
+      height: auto;
+      object-fit: contain;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px #ffd54faa;
+      background: #191970bb;
+      padding: 8px;
+      user-select: none;
+      transition: transform 0.3s ease;
+    }
 
+    .basket-container img:hover {
+      transform: scale(1.1);
+      cursor: pointer;
+    }
+
+    .current-score {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #fffde7;
+      width: 100px;
+      text-align: center;
+      user-select: none;
+      text-shadow: 1px 1px 6px #ff6f00;
+      flex-shrink: 0;
+      margin: 0 20px;
+    }
+
+    .btn-group {
+      text-align: center;
+    }
+
+    button.btn {
+      min-width: 140px;
+      font-weight: 600;
+      font-size: 1.2rem;
+      /* 按鈕字型縮小，更適合手機 */
+      padding: 0.6rem 1.5rem;
+      border-radius: 30px;
+      box-shadow: 0 3px 8px rgb(0 0 0 / 0.2);
+      margin: 0 15px 15px;
+      transition: all 0.2s ease;
+    }
+
+    button.btn-primary {
+      background-color: #ffd54f;
+      color: #1b1b1b;
+      border: none;
+    }
+
+    button.btn-primary:hover,
+    button.btn-primary:focus {
+      background-color: #ffca28;
+      color: #1b1b1b;
+      box-shadow: 0 0 12px #ffca28aa;
     }
   </style>
 </head>
 
 <body>
-
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">皮拉提斯訓練平台</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="./views/main/course_list.php">課程流覽</a></li>
-          <li class="nav-item"><a class="nav-link" href="./views/main/register.php">註冊</a></li>
-          <li class="nav-item"><a class="nav-link" href="./views/main/login.php">登入</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Carousel -->
-  <div class="mt-5">
-    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-
-      <!-- 輪播內容 -->
-      <div class="carousel-inner">
-        <!-- 第一張 -->
-        <div class="carousel-item active">
-          <img src="./uploads/women-5635784_1920.png" class="d-block w-100" alt="皮拉提斯">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>打造健康與柔軟的身體</h5>
-            <p>從今天開始你的皮拉提斯旅程</p>
-          </div>
-        </div>
-
-        <!-- 第二張 -->
-        <div class="carousel-item">
-          <img src="./uploads/gym-4524814_1920.png" class="d-block w-100" alt="健身">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>專業自學系統</h5>
-            <p>隨時隨地、自主訓練</p>
-          </div>
-        </div>
-
-        <!-- 第三張 -->
-        <div class="carousel-item">
-          <img src="./uploads/sport-3357914_1920.jpg" class="d-block w-100" alt="健身">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>彈性學習</h5>
-            <p>自主安排學習節奏</p>
-          </div>
-        </div>
-
-        <!-- 第四張 -->
-        <div class="carousel-item">
-          <img src="./uploads/workout-1931107_1920.jpg" class="d-block w-100" alt="健身">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>課程主題</h5>
-            <p>系統化、核心技巧</p>
-          </div>
-        </div>
+  <!-- 第一區 標題區 -->
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="title display-1">🏀 投籃大賽 🏀</h1>
 
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </button>
     </div>
   </div>
 
-  <!-- Cards -->
-  <div class="container mt-5" style="height:60vh">
+  <div class="scoreboard" aria-label="比分板">
     <div class="row text-center">
-
-      <!-- card 1 -->
-      <div class="col-12 col-sm-3">
-        <div class="card h-75 shadow-sm">
-          <img src="./uploads/card01.jpg" class="card-img-top h-50">
-          <div class="card-body">
-            <h5 class="card-title">彈性學習</h5>
-            <p class="card-text">隨時登入平台<br>自主安排學習節奏<br></p>
-            <a href="./views/main/course_list.php" class="btn btn-primary">learn more</a>
-          </div>
-        </div>
+      <div class="col-6 col-md-6">
+        剩餘時間/秒 <span id="countdown">60</span>
       </div>
-
-      <!-- card 2 -->
-      <div class="col-12 col-sm-3">
-        <div class="card h-75 shadow-sm">
-          <img src="./uploads/card02.jpg" class="card-img-top h-50">
-          <div class="card-body">
-            <h5 class="card-title">完整章節</h5>
-            <p class="card-text">依照課程主題<br>系統化學習核心技巧<br></p>
-            <a href="./views/main/course_list.php" class="btn btn-primary">learn more</a>
-          </div>
-        </div>
+      <div class="col-6 col-md-6">最高分數 <span id="highScore">0</span>
       </div>
-
-      <!-- card 3 -->
-      <div class="col-12 col-sm-3">
-        <div class="card h-75 shadow-sm">
-          <img src="./uploads/card03.jpg" class="card-img-top h-50">
-          <div class="card-body">
-            <h5 class="card-title">影片與教材整合</h5>
-            <p class="card-text">觀看教學影片<br>下載教材輔助訓練<br></p>
-            <a href="./views/main/course_list.php" class="btn btn-primary">learn more</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- card 4 -->
-      <div class="col-12 col-sm-3">
-        <div class="card h-75 shadow-sm">
-          <img src="./uploads/card04.jpg" class="card-img-top h-50">
-          <div class="card-body">
-            <h5 class="card-title">輕鬆入門</h5>
-            <p class="card-text">由淺入深<br>循序漸進<br></p>
-            <a href="./views/main/course_list.php" class="btn btn-primary">learn more</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- card end -->
     </div>
   </div>
-  <!-- Cards end -->
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <p class="mb-0">皮拉提斯訓練平台 &copy; <?= date('Y') ?> All rights reserved.</p>
+  <!-- 第二區 投籃比分區 -->
+  <!-- 加上RWD 要加上 .row .col兩個區塊 -->
+  <div class="basket-container" aria-label="投籃比分區">
+    <div class="row w-100 justify-content-center align-items-center text-center">
+      <div class="col-4 col-md-4">
+        <img src="./images/hoop.png" alt="左籃框" class="img-fluid rounded-circle shadow" />
+      </div>
+
+      <div class="col-4 col-md-4 current-score d-flex justify-content-center align-items-center" id="currentScore"
+        style="font-size: 3rem; font-weight: 700">
+        100
+      </div>
+
+      <div class="col-4 col-md-4">
+        <img src="./images/ball2.png" alt="右籃球" class="img-fluid rounded-circle shadow" />
+      </div>
     </div>
-  </footer>
+  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- 第三區 按鈕區-->
+  <!-- 加上RWD 要加上 .row .col兩個區塊 -->
+  <div class="btn-group w-100">
+    <div class="row justify-content-center">
+      <div class="col-6 col-md-6 d-flex justify-content-center mb-2">
+        <button id="startBtn" type="button" class="btn btn-primary w-100">
+          開始
+        </button>
+      </div>
+      <div class="col-6 col-md-6 d-flex justify-content-center mb-2">
+        <button id="stopBtn" type="button" class="btn btn-primary w-100">
+          停止
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 沒有RWD -->
+  <!-- <div class="btn-group">
+    <button id="startBtn" type="button" class="btn btn-primary">開始</button>
+    <button id="stopBtn" type="button" class="btn btn-primary">停止</button>
+  </div> -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.7/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <script>
+    $(function () {
+      let intervalTimer = null; // 控制倒數時間計時器
+      let timeLeft = 60; // 剩餘秒數
+      let currentScore = 0; // 目前分數
+
+      function updateCountdown() {
+        $("#countdown").text(timeLeft);
+      }
+
+      function updateScore() {
+        $("#currentScore").text(currentScore);
+      }
+
+      // 按開始
+      $("#startBtn").click(() => {
+        if (intervalTimer === null) {
+          timeLeft = 60;
+          currentScore = 2;
+          updateCountdown();
+          updateScore();
+
+          intervalTimer = setInterval(() => {
+            timeLeft--;
+            updateCountdown();
+
+            if (timeLeft <= 0) {
+              clearInterval(intervalTimer);
+              intervalTimer = null;
+            }
+          }, 1000);
+        } else {
+          // 倒數中按開始，分數加2（上限100）
+          if (currentScore < 100) {
+            currentScore += 2;
+            if (currentScore > 100) currentScore = 100;
+            updateScore();
+          }
+        }
+      });
+
+      // 按停止
+      $("#stopBtn").click(() => {
+        if (intervalTimer !== null) {
+          clearInterval(intervalTimer);
+          intervalTimer = null;
+        }
+        currentScore = 0;
+        updateScore();
+
+        timeLeft = 60;
+        updateCountdown();
+
+        console.log("遊戲停止與分數重置");
+      });
+    });
+  </script>
 </body>
 
 </html>
